@@ -1,0 +1,135 @@
+﻿@*@page
+    @model ProdutoDataModel
+    @{
+    }*@
+
+@page "/produto/{action}/{paramProdutoId}"
+@page "/produto/{action}"
+@inherits ProdutoDataModel
+
+<h1>@title</h1>
+
+@if (action == "fetch")
+{
+    <p>
+        <a href="/produto/criar">Adicionar Produto</a>
+    </p>
+}
+
+@if (action == "create" || action == "edit")
+{
+    <form>
+        <table class="form-group">
+            <tr>
+                <td>
+                    <label for="Name" class="control-label">Nome</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" bind="@produto.Nome" />
+                </td>
+                <td width="20"> </td>
+                <td>
+                    <label for="Department" class="control-label">Preço</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" bind="@produto.Preco" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Gender" class="control-label">Categoria</label>
+                </td>
+                <td>
+                    <select asp-for="Gender" class="form-control" bind="@produto.Categoria">
+                        <option value="">-- Selecione --</option>
+                        <option value="Esporte">Esporte</option>
+                        <option value="Social">Social</option>
+                        <option value="Gala">Gala</option>
+                        <option value="Infantil">Infantil</option>
+                    </select>
+                </td>
+                <td width="20"> </td>
+                <td>
+                    <label for="City" class="control-label">City</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" bind="@produto.Id" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" class="btn btn-success" onclick="@(async () => await Adicionar())" style="width:220px;" value="Save" />
+                </td>
+                <td></td>
+                <td width="20"> </td>
+                <td>
+                    <input type="submit" class="btn btn-danger" onclick="@Cancelar" style="width:220px;" value="Cancel" />
+                </td>
+            </tr>
+        </table>
+    </form>
+}
+else if (action == "delete")
+{
+    <div class="col-md-4">
+        <table class="table">
+            <tr>
+                <td>Nome</td>
+                <td>@produto.Nome</td>
+            </tr>
+            <tr>
+                <td>Preço</td>
+                <td>@produto.Preco</td>
+            </tr>
+            <tr>
+                <td>Categoria</td>
+                <td>@produto.Categoria</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>pro</td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" onclick="@(async () => await Remover())" value="Delete" />
+            <input type="submit" value="Cancel" onclick="@Cancelar" class="btn" />
+        </div>
+    </div>
+}
+
+@if (produtos == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else
+{
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Categoria</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in produtos)
+            {
+                <tr>
+                    <td>@produto.Id</td>
+                    <td>@produto.Nome</td>
+                    <td>@produto.Preco</td>
+                    <td>@produto.Categoria</td>
+                    <td>pro</td>
+                    <td>
+
+                        <a href='/produto/editar/@produto.Id'>Editar</a>  |
+                        <a href='/employee/delete/@produto.Id'>Remover</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}  
