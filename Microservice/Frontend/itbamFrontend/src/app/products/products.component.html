@@ -1,0 +1,21 @@
+<ul>
+  <li *ngFor="let product of products">
+    <input [(ngModel)]="product.nome"/>
+    <div (click)="aoSelecionarProduto(product)">
+      Id: {{product.id}}
+    </div>
+    <div>
+      Nome: {{product.nome}}
+    </div>
+    <div>
+      Preço: {{product.preco}}
+    </div>
+    <div>
+      Categoria: {{product.categoria}}
+    </div>
+  </li>
+</ul>
+<div *ngIf="produtoSelecionado">
+  <h2>Produto Selecionado:</h2>
+  <h2>{{produtoSelecionado.nome}}</h2>
+</div>
